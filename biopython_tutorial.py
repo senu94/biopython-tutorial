@@ -15,3 +15,29 @@ for seq_record in SeqIO.parse("ls_orchid.fasta","fasta"):
     print(len(seq_record))
     print(seq_record.seq)
 
+# counting bases can be done with overlap considered or not
+from Bio.Seq import Seq
+sequence = Seq("AAGGGGAATCCTATGTTAACCCGGG")
+# overlapping count
+sequence.count("GG")
+sequence.count_overlap("GG")
+
+# calculate the GC content
+from Bio.SeqUtils import GC
+GC(sequence)
+
+# get template strand from coding strand
+coding_strand = Seq("AATTTGGGCCCATGCATGCGTAGGGGAAAA")
+template_strand = coding_strand.reverse_complement()
+
+# for transcribing
+messenger_rna = coding_strand.transcribe()
+
+# you could also back transcribe the messenger rna in to coding dna
+coding_strand_from_rna = messenger_rna.back_transcribe()
+
+# you could translate either the messenger rna or the coding strand in to amino acids
+messenger_rna.translate()
+coding_strand.translate()
+
+
